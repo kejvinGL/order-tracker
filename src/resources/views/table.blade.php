@@ -24,7 +24,7 @@
         $('#ordersTable').DataTable({
             info: false,
             ajax: {
-                url: '{{route('get.orders.datatable')}}',
+                url: 'orders/datatable',
                 type: 'get'
             },
             layout: {

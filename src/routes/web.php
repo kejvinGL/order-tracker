@@ -5,7 +5,7 @@ use KejvinGL\OrderTracker\Controllers\OrderController;
 
 Route::prefix(config('order-tracker.prefix'))->group(function () {
 
-    Route::get('orders', [OrderController::class, 'dataTable']);
+    Route::get('orders/datatable', [OrderController::class, 'dataTable']);
     Route::get('export/orders', [OrderController::class, 'export']);
     Route::get('orders', [OrderController::class, 'index']);
 
