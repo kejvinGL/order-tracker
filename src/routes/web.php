@@ -13,4 +13,4 @@ Route::prefix(config('order-tracker.prefix'))->group(function () {
     Route::get('process-transaction', [OrderController::class, 'processTransaction'])->name('process.transaction');
     Route::get('success-transaction', [OrderController::class, 'successTransaction'])->name('success.transaction');
     Route::get('cancel-transaction', [OrderController::class, 'cancelTransaction'])->name('cancel.transaction');
-});
+})->middleware(config('order-tracker.middleware'));

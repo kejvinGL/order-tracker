@@ -1,6 +1,8 @@
 <?php
-namespace App\Http\Controllers;
 
+namespace KejvinGL\OrderTracker\Controllers;
+
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,12 +14,6 @@ use Yajra\DataTables\DataTables;
 
 class OrderController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware(config('order-tracker.middleware', []));
-    }
-
     public function dataTable()
     {
         $orders = Order::all();
