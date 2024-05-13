@@ -1,8 +1,6 @@
 <?php
+namespace App\Http\Controllers;
 
-namespace KejvinGL\OrderTracker\Controllers;
-
-use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
