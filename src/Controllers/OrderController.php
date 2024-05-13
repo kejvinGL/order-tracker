@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use KejvinGL\OrderTracker\Exports\OrderExport;
 use KejvinGL\OrderTracker\Models\Order;
 use Maatwebsite\Excel\Facades\Excel;
-use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Yajra\DataTables\DataTables;
 
 class OrderController extends Controller
@@ -50,44 +49,18 @@ class OrderController extends Controller
                 'price' => config('order-tracker.price'),
                 'status' => 'Processing']);
 
-            $provider = new PayPalClient;
-            $provider->setApiCredentials(config('paypal'));
-            $paypalToken = $provider->getAccessToken();
-            $response = $provider->createOrder([
-                "intent" => "CAPTURE",
-                "application_context" => [
-                    "return_url" => route('success.transaction', ['name' => $attr['name'], 'email' => $attr['email']]),
-                    "cancel_url" => route('cancel.transaction', ['order' => $order]),
-                ],
-                "purchase_units" => [
-                    0 => [
-                        "amount" => [
-                            "currency_code" => "USD",
-                            "value" => "3.14"
-                        ]
-                    ]
-                ]
-            ]);
+            $response = ["id" => '3X4MPL3'];
 
-            $order->update(['external_id' => $response['id'],]);
+            $order->update(['external_id' => $response['id']]);
 
-            if (isset($response['id']) && $response['id'] != null) {            // redirect to approve href
-                foreach ($response['links'] as $links) {
-                    if ($links['rel'] == 'approve') {
-                        return redirect()->away($links['href']);
-                    }
-                }
-                $order->update(['status' => 'failed', 'error_message' => 'Something went wrong']);
 
+            if (!isset($response['id'])  || $response['id'] == null) {            // redirect to approve href
+                $order->update(['status' => 'Failed', 'error_message' => 'Something went wrong']);
                 return redirect()
                     ->route('createTransaction')
                     ->with('error', 'Something went wrong.');
             } else {
-                $order->update(['status' => 'failed', 'error_message' => $response['error']['message']]);
-
-                return redirect()
-                    ->route('createTransaction')
-                    ->with('error', $response['error']['message'] ?? 'Something went wrong.');
+                return redirect()->route('success.transaction')->with($response);
             }
         } catch (Exception $e) {
             return redirect()
@@ -99,19 +72,14 @@ class OrderController extends Controller
     public function successTransaction(Request $request)
     {
         try {
-            $provider = new PayPalClient;
-            $provider->setApiCredentials(config('paypal'));
-            $provider->getAccessToken();
-            $response = $provider->capturePaymentOrder($request['token']);
-            $order = Order::whereExternalId($response['id']);
-            if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+            $order = Order::whereExternalId($request->response['id']);
+            if ($request->response['id'] !== null){
                 $order->update(['status' => 'Completed', 'error_message' => null]);
                 return redirect()
                     ->route('create.transaction')
                     ->with('success', 'Transaction complete.');
             } else {
                 $order->update(['status' => 'Failed', 'error_message' => $response['error']['message'] ?? 'Something went wrong.']);
-
                 return redirect()
                     ->route('create.transaction')
                     ->with('error', $response['error']['message'] ?? 'Something went wrong.');

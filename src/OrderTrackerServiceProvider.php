@@ -19,6 +19,10 @@ class OrderTrackerServiceProvider extends ServiceProvider
             __DIR__ . '/resources/views' => resource_path('views/vendor/order-tracker'),
         ], ['order-tracker', 'order-tracker-views']);
 
+        $this->publishes([
+            __DIR__.'/public' => public_path('vendor/kejvingl/order-tracker'),
+        ], ['order-tracker', 'order-tracker-views']);
+
         $this->mergeConfigFrom(__DIR__ . '/config/order-tracker.php', 'order-tracker');
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
 

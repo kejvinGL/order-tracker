@@ -8,12 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
     <title>Laravel.Kejvin | Create Order</title>
 </head>
-<body class="mt-16 min-h-screen">F
-
-
+<body class="mt-16 min-h-screen">
 <div class="h-1/5 w-1/2 mt-16">
     <div class="success-message text-lg text-center">
         {{ session('success') }}
