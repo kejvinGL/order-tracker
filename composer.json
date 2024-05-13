@@ -1,0 +1,28 @@
+{
+    "name": "kejvingl/order-tracker",
+    "description": "Laravel package that creates a blueprint for tracking, saving and displaying orders.",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "KejvinGL\\OrderTracker\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kejvin Braka"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "KejvinGL\\OrderTracker\\OrderTrackerServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "srmklive/paypal": "~3.0",
+        "maatwebsite/excel": "^3.1",
+        "yajra/laravel-datatables-oracle": "^11.1",
+        "yajra/laravel-datatables-buttons": "^11.0"
+    }
+}
