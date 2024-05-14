@@ -22,7 +22,7 @@
         $('#ordersTable').DataTable({
             info: false,
             ajax: {
-                url: 'orders/datatable',
+                url: '{{route('get.orders.datatable')}}',
                 type: 'get'
             },
             layout: {
@@ -39,42 +39,42 @@
                 {
                     text: 'All',
                     action: function (e, dt, node, config) {
-                        dt.column(5).search("").draw();
+                        dt.column(6).search("").draw();
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Completed',
                     action: function (e, dt, node, config) {
-                        dt.column(5).search("Completed").draw();
+                        dt.column(6).search("Completed").draw();
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Cancelled',
                     action: function (e, dt, node, config) {
-                        dt.column(5).search("Cancelled").draw();
+                        dt.column(6).search("Cancelled").draw();
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Failed',
                     action: function (e, dt, node, config) {
-                        dt.column(5).search("Failed").draw();
-                    },
-                    className: 'btn',
-                },
-                {
-                    text: 'Processing',
-                    action: function (e, dt, node, config) {
-                        dt.column(5).search("Processing").draw();
+                        dt.column(6).search("Failed").draw();
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Export as XLSX ',
                     action: function (e, dt, node, config) {
-                        window.location.href = '/export/orders';
+                        window.location.href = '/export/orders/pdf';
+                    },
+                    className: 'btn',
+                },
+                {
+                    text: 'Export as PDF ',
+                    action: function (e, dt, node, config) {
+                        window.open('/export/orders/pdf','_blank').focus();
                     },
                     className: 'btn',
                 },
