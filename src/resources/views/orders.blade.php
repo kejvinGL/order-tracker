@@ -37,56 +37,49 @@
                 {
                     text: '<i class="fa-solid fa-rotate-right"></i>',
                     action: function (e, dt, node, config) {
-                        dt.column(5).search("").draw();
+                        dt.column(6).search("").draw();
                         dt.ajax.reload();
                     }
                 },
                 {
                     text: 'All',
                     action: function (e, dt, node, config) {
-                        dt.column(5).search("").draw();
+                        dt.column(6).search("").draw();
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Completed',
                     action: function (e, dt, node, config) {
-                        dt.column(5).search("Completed").draw();
+                        dt.column(6).search("Completed").draw();
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Cancelled',
                     action: function (e, dt, node, config) {
-                        dt.column(5).search("Cancelled").draw();
+                        dt.column(6).search("Cancelled").draw();
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Failed',
                     action: function (e, dt, node, config) {
-                        dt.column(5).search("Failed").draw();
-                    },
-                    className: 'btn',
-                },
-                {
-                    text: 'Processing',
-                    action: function (e, dt, node, config) {
-                        dt.column(5).search("Processing").draw();
+                        dt.column(6).search("Failed").draw();
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Export as XLSX ',
                     action: function (e, dt, node, config) {
-                        window.location.href = '/{{config('order-tracker.prefix'). '/xlsx'}}';
+                        window.location.href = '/export/orders/xlsx';
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Export as PDF ',
                     action: function (e, dt, node, config) {
-                        window.open('/{{config('order-tracker.prefix'). '/pdf'}}', '_blank').focus();
+                        window.open('/export/orders/pdf', '_blank').focus();
                     },
                     className: 'btn',
                 },
@@ -104,7 +97,29 @@
                 {data: 'created_at', name: 'created_at'},
                 {data: 'updated_at', name: 'updated_at'},
             ],
-            order: false
+            order: false,
+            columnDefs: [
+                {
+                    targets: 5, // Targeting the 'status' column
+                    createdCell: function (cell, cellData, rowData, row, col) {
+                        switch (cellData) {
+                            case 'Completed':
+                                $(cell).addClass('bg-green-800')
+                                break;
+                            case 'Cancelled':
+                                $(cell).addClass('bg-yellow-800');
+                                break;
+                            case 'Failed':
+                                $(cell).addClass('bg-red-600');
+                                break;
+                            case 'Processing':
+                                $(cell).addClass('bg-cyan-800');
+                                break;
+                            // Add more cases if needed
+                        }
+                    }
+                }
+            ]
         });
     });
 </script>
