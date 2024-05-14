@@ -8,6 +8,8 @@ use Exception;
 use KejvinGL\OrderTracker\Exports\OrderExport;
 use KejvinGL\OrderTracker\Models\Order;
 use Maatwebsite\Excel\Facades\Excel;
+use Spatie\LaravelPdf\Enums\Format;
+use Spatie\LaravelPdf\Enums\Orientation;
 use Spatie\LaravelPdf\Facades\Pdf;
 use Yajra\DataTables\DataTables;
 
@@ -31,20 +33,23 @@ class OrderController extends Controller
 
     public function index()
     {
-        return view('vendor.order-tracker.table');
+        return view('vendor.order-tracker.orders');
     }
 
     public function exportAsExcel()
     {
         return Excel::download(new OrderExport, 'orders_' . now()->format('d-m-y') . '.xlsx');
     }
+
     public function exportAsPDF()
     {
         try {
-            return Pdf::view('pdf.users-pdf', ['users'=> Order::latest()->get()])
-                ->format('a4')
+            return Pdf::view('pdf.orders-pdf', ['orders'=> Order::latest()->get()])
+                ->orientation(Orientation::Landscape)
+                ->format(Format::A4)
                 ->save('orders.pdf');
         } catch (Exception $e){
+
             return back()->with('error', $e->getMessage());
         }
     }

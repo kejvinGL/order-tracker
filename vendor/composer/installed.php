@@ -3,7 +3,7 @@
         'name' => 'kejvingl/order-tracker',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '38e36bf377b88623be799ebb771a411f584c085a',
+        'reference' => '78b3def6717de34db9ee84e25838d3e59d66c317',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -238,7 +238,7 @@
         'kejvingl/order-tracker' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '38e36bf377b88623be799ebb771a411f584c085a',
+            'reference' => '78b3def6717de34db9ee84e25838d3e59d66c317',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

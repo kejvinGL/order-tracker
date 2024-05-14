@@ -4,15 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{asset('/vendor/kejvingl/order-tracker/src/resources/css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('/vendor/kejvingl/order-tracker/css/app.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.0.7/b-3.0.2/b-html5-3.0.2/datatables.min.css"
+          rel="stylesheet">
+    <script src="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.0.7/b-3.0.2/b-html5-3.0.2/datatables.min.js"></script>
 
     <title>Laravel.Kejvin | Order List</title>
 </head>
 <body class="mt-16 min-h-screen">
-
+<div class="error-message text-lg text-center">
+    {{ session('error') }}
+</div>
 <table id="ordersTable" class="display w-full lg:text-lg">
     @include('vendor.order-tracker.header')
 </table>
@@ -32,49 +37,56 @@
                 {
                     text: '<i class="fa-solid fa-rotate-right"></i>',
                     action: function (e, dt, node, config) {
-                        dt.column(6).search("").draw();
+                        dt.column(5).search("").draw();
                         dt.ajax.reload();
                     }
                 },
                 {
                     text: 'All',
                     action: function (e, dt, node, config) {
-                        dt.column(6).search("").draw();
+                        dt.column(5).search("").draw();
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Completed',
                     action: function (e, dt, node, config) {
-                        dt.column(6).search("Completed").draw();
+                        dt.column(5).search("Completed").draw();
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Cancelled',
                     action: function (e, dt, node, config) {
-                        dt.column(6).search("Cancelled").draw();
+                        dt.column(5).search("Cancelled").draw();
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Failed',
                     action: function (e, dt, node, config) {
-                        dt.column(6).search("Failed").draw();
+                        dt.column(5).search("Failed").draw();
+                    },
+                    className: 'btn',
+                },
+                {
+                    text: 'Processing',
+                    action: function (e, dt, node, config) {
+                        dt.column(5).search("Processing").draw();
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Export as XLSX ',
                     action: function (e, dt, node, config) {
-                        window.location.href = '/export/orders/pdf';
+                        window.location.href = '/{{config('order-tracker.prefix'). '/xlsx'}}';
                     },
                     className: 'btn',
                 },
                 {
                     text: 'Export as PDF ',
                     action: function (e, dt, node, config) {
-                        window.open('/export/orders/pdf','_blank').focus();
+                        window.open('/{{config('order-tracker.prefix'). '/pdf'}}', '_blank').focus();
                     },
                     className: 'btn',
                 },

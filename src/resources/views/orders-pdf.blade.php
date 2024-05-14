@@ -4,13 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{asset('/vendor/kejvingl/order-tracker/src/resources/css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('/vendor/kejvingl/order-tracker/css/app.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link href="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.0.7/b-3.0.2/b-html5-3.0.2/datatables.min.css"
-          rel="stylesheet">
-    <script src="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.0.7/b-3.0.2/b-html5-3.0.2/datatables.min.js"></script>
 </head>
 <body class="overflow-hidden p-10">
 <h1>Orders Report ({{ now()->format('d/m/y') }})</h1>
@@ -32,7 +29,7 @@
 
         <tbody>
         @foreach($chunk as $order)
-            @include('components.order-list.row', $order)
+            @include('vendor.order-tracker.row', $order)
         @endforeach
         </tbody>
     </table>
