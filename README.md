@@ -14,6 +14,9 @@ Requirements
 * yajra/laravel-datatables-oracle
 * yajra/laravel-datatables-buttons
 * maatwebsite/excel
+* spatie/browsershot
+* spatie/laravel-pdf
+
 Features
 --------
 * PSR-4 autoloading compliant structure;
