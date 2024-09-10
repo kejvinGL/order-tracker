@@ -45,7 +45,7 @@ Publishing All Resources:
 --------
     php artisan vendor:publish --tag=order-tracker
 
-Publishing Views & Public only:
+Publishing Config only:
 --------
     php artisan vendor:publish --tag=order-tracker-config
 
